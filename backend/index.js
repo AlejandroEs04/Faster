@@ -16,8 +16,8 @@ dotenv.config();
 // Configurar Cors
 const whiteList = [
     process.env.FRONTEND_URL, 
-    "https://fasterdepot.com", 
-    "https://www.fasterdepot.com/"
+    "fasterdepot.com", 
+    "www.fasterdepot.com"
 ];
 
 const corsOptions = {
