@@ -1,5 +1,6 @@
 import { PrismaClient } from "@prisma/client";
 import deleteSize from "../helpers/eliminarSize.js";
+import { io } from "../index.js";
 
 const prisma = new PrismaClient()
 
@@ -23,7 +24,7 @@ const findAll = async(req, res) => {
 
         return res.status(200).json({msg: 'Ok', products})
     } catch (error) {
-        
+        console.log(error)
     }
 
     return res.status(400).json({msg: "Si funciona"});
@@ -33,155 +34,58 @@ const create = async(req, res) => {
     try {
         const product = await req.body.product
 
-        const res = await prisma.product.create({
+        await prisma.product.create({
             data: {
                 name: product.name,
                 price: +product.price,
                 amount: +product.amount,
                 typeID: +product.typeID,
                 description: product.description,
-                imageUrl: product.imageURL
+                imageUrl: product.imageUrl
             }
         })
 
-        if(product.xs) {
+        product.detProductSize.map(async(size) => {
             await prisma.detProductSize.create({
                 data: {
-                    productID: res.ID,
-                    sizeID: 1
+                    productID: +res.ID, 
+                    sizeID: +size.ID
                 }
-            }) 
-        }
+            })
+        })
 
-        if(product.s) {
-            await prisma.detProductSize.create({
-                data: {
-                    productID: res.ID,
-                    sizeID: 2
-                }
-            }) 
-        }
-
-        if(product.m) {
-            await prisma.detProductSize.create({
-                data: {
-                    productID: res.ID,
-                    sizeID: 3
-                }
-            }) 
-        }
-
-        if(product.l) {
-            await prisma.detProductSize.create({
-                data: {
-                    productID: res.ID,
-                    sizeID: 4
-                }
-            }) 
-        }
-
-        if(product.xl) {
-            await prisma.detProductSize.create({
-                data: {
-                    productID: res.ID,
-                    sizeID: 5
-                }
-            }) 
-        }
+        io.emit('productsUpdate')
 
         return res.status(200).json({msg: 'Ok', res});
-
     } catch (error) {
         console.log(error)
     }
-
-    return
 }
 
 const update = async(req, res) => {
     const product = await req.body.product
 
     try {
-        const sizeProduct = await prisma.detProductSize.findMany({
-            where: {
-                productID: product.ID
+        product.detProductSize.map(async(size) => {
+            const existSize = await prisma.detProductSize.findFirst({
+                where: {
+                    productID: +product.ID, 
+                    sizeID : +size.ID
+                }
+            })
+
+            if(existSize) {
+                return
             }
+
+            await prisma.detProductSize.create({
+                data: {
+                    productID: +product.ID, 
+                    sizeID: +size.ID
+                }
+            })
+
         })
-
-        if(product.xs) {
-            if(!sizeProduct.filter(size => size.sizeID === 1).length > 0) {
-                await prisma.detProductSize.create({
-                    data: {
-                        productID: product.ID,
-                        sizeID: 1
-                    }
-                }) 
-            } 
-        } else {
-            if(sizeProduct.filter(size => size.sizeID === 1).length > 0) {
-                deleteSize(product.ID, 1)
-            }
-        }
-
-        if(product.s) {
-            if(!sizeProduct.filter(size => size.sizeID === 2).length > 0) {
-                await prisma.detProductSize.create({
-                    data: {
-                        productID: product.ID,
-                        sizeID: 2
-                    }
-                }) 
-            }
-        } else {
-            if(sizeProduct.filter(size => size.sizeID === 2).length > 0) {
-                deleteSize(product.ID, 2)
-            }
-        }
-
-        if(product.m) {
-            if(!sizeProduct.filter(size => size.sizeID === 3).length > 0) {
-                await prisma.detProductSize.create({
-                    data: {
-                        productID: product.ID,
-                        sizeID: 3
-                    }
-                }) 
-            }
-        } else {
-            if(sizeProduct.filter(size => size.sizeID === 3).length > 0) {
-                deleteSize(product.ID, 3)
-            }
-        }
-
-        if(product.l) {
-            if(!sizeProduct.filter(size => size.sizeID === 4).length > 0) {
-                await prisma.detProductSize.create({
-                    data: {
-                        productID: product.ID,
-                        sizeID: 4
-                    }
-                }) 
-            }
-        } else {
-            if(sizeProduct.filter(size => size.sizeID === 4).length > 0) {
-                deleteSize(product.ID, 4)
-            }
-        }
-
-        if(product.xl) {
-            if(!sizeProduct.filter(size => size.sizeID === 5).length > 0) {
-                await prisma.detProductSize.create({
-                    data: {
-                        productID: product.ID,
-                        sizeID: 5
-                    }
-                }) 
-            }
-        } else {
-            if(sizeProduct.filter(size => size.sizeID === 5).length > 0) {
-                deleteSize(product.ID, 5)
-            }
-        }
 
         await prisma.product.update({
             where: {
@@ -193,9 +97,11 @@ const update = async(req, res) => {
                 amount: +product.amount,
                 typeID: +product.typeID,
                 description: product.description,
-                imageUrl: product.imageURL
+                imageUrl: product.imageUrl
             }
         })
+
+        io.emit('productsUpdate')
 
         return res.status(200).json({msg: 'Producto Actualizado Correctamente'});
     } catch (error) {
@@ -210,10 +116,36 @@ const deleteOne = async(req, res) => {
         await prisma.product.update({
             where: {
                 ID: +id
+            }, 
+            data: {
+                active: false
             }
         })
 
+        io.emit('productsUpdate')
+
         res.status(200).json({msg: 'Producto Eliminado Correctamente'})
+    } catch (error) {
+        console.log(error)
+    }
+}
+
+const recoveryOne = async(req, res) => {
+    const {id} = await req.params
+
+    try {
+        await prisma.product.update({
+            where: {
+                ID: +id
+            }, 
+            data: {
+                active: true
+            }
+        })
+
+        io.emit('productsUpdate')
+
+        res.status(200).json({msg: 'Producto Reactivado Correctamente'})
     } catch (error) {
         console.log(error)
     }
@@ -223,5 +155,6 @@ export {
     findAll,
     create, 
     update,
-    deleteOne 
+    deleteOne, 
+    recoveryOne
 }

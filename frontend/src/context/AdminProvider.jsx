@@ -5,40 +5,16 @@ import { toast } from "react-toastify";
 
 const AdminContext = createContext();
 
-function Product(ID, name, price, amount, typeID, description, imageURL, xs, s, m, l, xl) {
-    this.ID = ID
-    this.name = name;
-    this.price = price;
-    this.amount = amount;
-    this.typeID = typeID;
-    this.description = description;
-    this.imageURL = imageURL;
-    this.xs = xs;
-    this.s = s;
-    this.m = m;
-    this.l = l;
-    this.xl = xl;
-}
-
-function Model(ID, name, description) {
-    this.ID = ID
-    this.name = name;
-    this.description = description
-}
-
 const AdminProvider = ({children}) => {
-    // Product's variables
-    const [name, setName] = useState("");
-    const [price, setPrice] = useState(0);
-    const [amount, setAmount] = useState(0);
-    const [typeID, setTypeID] = useState(0)
-    const [description, setDescription] = useState("");
-    const [imagenUrl, setImagenUrl] = useState(null);
-    const [XS, setXS] = useState(false);
-    const [S, setS] = useState(false);
-    const [M, setM] = useState(false);
-    const [L, setL] = useState(false);
-    const [XL, setXL] = useState(false);
+    const [product, setProduct] = useState({
+        name : '', 
+        price : 0, 
+        amount : 100, 
+        typeID : 0, 
+        description : '', 
+        imageUrl : '', 
+        detProductSize : []
+    })
 
     // Model's variables
     const [nameModel, setNameModel] = useState('')
@@ -46,6 +22,7 @@ const AdminProvider = ({children}) => {
 
     // Buy's variables
     const [buys, setBuys] = useState([]);
+    const [loading, setLoading] = useState(false)
     const [modal, setModal] = useState(false)
     const [productModal, setProductModal] = useState({});
     const [typeModal, setTypeModal] = useState({})
@@ -60,8 +37,8 @@ const AdminProvider = ({children}) => {
     }, [])
 
     /** PRODUCTS CRUD */
-    const handleSaveProduct = async(id) => {
-        const product = new Product(id, name, price, amount, typeID, description, imagenUrl, XS, S, M, L, XL);
+    const handleSaveProduct = async(e) => {
+        e.preventDefault()
 
         const token = localStorage.getItem('token');
         
@@ -72,35 +49,33 @@ const AdminProvider = ({children}) => {
             }
         }
 
-        if(id) {
-            try {
-                const res = await axios.post(`${import.meta.env.VITE_API_URL}/api/products/${id}/update`, {
+        let response
+
+        setLoading(true)
+
+        try {
+            if(product.ID) {
+                const { data } = await axios.put(`${import.meta.env.VITE_API_URL}/api/products/${product.ID}`, {
                     product
                 }, config)
 
-                toast.success(data.msg, {
-                    position: toast.POSITION.BOTTOM_RIGHT
-                })
-
-                setTimeout(() => {
-                    navigate(0)
-                }, 2000);
-            } catch (error) {
-                
-            }
-        } else {
-            try {
-                const res = await axios.post(`${import.meta.env.VITE_API_URL}/api/products`, {
+                response = data
+            } else {
+                const { data } = await axios.post(`${import.meta.env.VITE_API_URL}/api/products`, {
                     product
-                })
+                }, config)
 
-                toast.success(data.msg, {
-                    position: toast.POSITION.BOTTOM_RIGHT
-                })
-            } catch (error) {
-                console.log(error)
+                response = data
             }
+        } catch (error) {
+            console.log(error)
+        } finally {
+            setLoading(false)
         }
+
+        toast.success(response.msg, {
+            position: toast.POSITION.BOTTOM_RIGHT
+        })
     }
 
     const handleDeleteProduct = async(id) => {
@@ -113,18 +88,43 @@ const AdminProvider = ({children}) => {
             }
         }
 
+        setLoading(true)
+        
         try {
-            const { data } = await axios(`${import.meta.env.VITE_API_URL}/api/products/${deleteId}/delete`, config)
+            const { data } = await axios.delete(`${import.meta.env.VITE_API_URL}/api/products/${id}`, config)
+
+            toast.error(data.msg, {
+                position: toast.POSITION.BOTTOM_RIGHT
+            })
+        } catch (error) {
+            console.log(error)
+        } finally {
+            setLoading(false)
+        }
+    }
+
+    const handleRecoveryProduct = async(id) => {
+        const token = localStorage.getItem('token');
+        
+        const config = {
+            headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${token}`
+            }
+        }
+
+        setLoading(true)
+        
+        try {
+            const { data } = await axios(`${import.meta.env.VITE_API_URL}/api/products/${id}/recovery`, config)
 
             toast.success(data.msg, {
                 position: toast.POSITION.BOTTOM_RIGHT
             })
-
-            setDeleteId(0)
-
-            navigate(0)
         } catch (error) {
             console.log(error)
+        } finally {
+            setLoading(false)
         }
     }
 
@@ -139,12 +139,16 @@ const AdminProvider = ({children}) => {
             }
         }
 
+        setLoading(true)
+        
         try {
             const { data } = await axios(`${import.meta.env.VITE_API_URL}/api/buy/admin`, config)
 
             setBuys(data?.buys)
         } catch (error) {
             console.log(error)
+        } finally {
+            setLoading(false)
         }
     }
 
@@ -164,6 +168,8 @@ const AdminProvider = ({children}) => {
             }
         }
 
+        setLoading(true)
+        
         try {
             const {data} = await axios.put(`${import.meta.env.VITE_API_URL}/api/buy/admin/${buy.ID}`, {
                 onTheWay: true
@@ -174,6 +180,8 @@ const AdminProvider = ({children}) => {
             })
         } catch (error) {
             console.log(error)
+        } finally {
+            setLoading(false)
         }
     }
 
@@ -193,6 +201,8 @@ const AdminProvider = ({children}) => {
             }
         }
 
+        setLoading(true)
+        
         try {
             const {data} = await axios.put(`${import.meta.env.VITE_API_URL}/api/buy/admin/${buy.ID}`, {
                 delivered: true
@@ -203,6 +213,8 @@ const AdminProvider = ({children}) => {
             })
         } catch (error) {
             console.log(error)
+        } finally {
+            setLoading(false)
         }
     }
 
@@ -220,6 +232,8 @@ const AdminProvider = ({children}) => {
         }
 
         if(id) {
+            setLoading(true)
+            
             try {
                 const { data } = await axios.put(`${import.meta.env.VITE_API_URL}/api/types/${id}`, {
                     model
@@ -232,8 +246,12 @@ const AdminProvider = ({children}) => {
                 })
             } catch (error) {
                 console.log(error)
+            } finally {
+                setLoading(false)
             }
         } else {
+            setLoading(true)
+            
             try {
                 const { data } = await axios.post(`${import.meta.env.VITE_API_URL}/api/types`, {
                     model
@@ -244,6 +262,8 @@ const AdminProvider = ({children}) => {
                 })
             } catch (error) {
                 console.log(error)
+            } finally {
+                setLoading(false)
             }
         }
     }
@@ -258,6 +278,8 @@ const AdminProvider = ({children}) => {
             }
         }
 
+        setLoading(true)
+        
         try {
             const { data } = await axios.delete(`${import.meta.env.VITE_API_URL}/api/types/${id}`, config)
 
@@ -266,6 +288,8 @@ const AdminProvider = ({children}) => {
             })
         } catch (error) {
             console.log(error)
+        } finally {
+            setLoading(false)
         }
     }
 
@@ -279,43 +303,6 @@ const AdminProvider = ({children}) => {
         setDescriptionModel(model[0].description)
     }
 
-    const handleFillModal = async(products, id, sizes) => {
-        const product = await products?.filter(product => product.ID === id)
-        setProductModal(product[0])
-
-        const sizesNew = await sizes?.map(size => {
-            const answer = product[0]?.detProductSize?.filter(sizeProduct => sizeProduct.sizeID === size.ID)
-
-            return answer[0]
-        })
-
-        sizesNew.map(size => {
-            if(size) {
-                switch (size.sizeID) {
-                    case 1:
-                        setXS(true)
-                        break;
-                    case 2:
-                        setS(true)
-                        break;
-                    case 3:
-                        setM(true)
-                        break;
-                    case 4:
-                        setL(true)
-                        break;
-                    case 5:
-                        setXL(true)
-                        break;
-                    
-                    default: 
-                        console.log('nada')
-                        break;
-                }
-            }
-        })
-    }
-
     const handleDeleteBuy = async() => {
         const token = localStorage.getItem('token');
         
@@ -326,6 +313,8 @@ const AdminProvider = ({children}) => {
             }
         }
 
+        setLoading(true)
+        
         try {
             const { data } = await axios.delete(`${import.meta.env.VITE_API_URL}/api/buy/admin/${deleteId}`, config);
 
@@ -338,6 +327,8 @@ const AdminProvider = ({children}) => {
             navigate(0);
         } catch (error) {
             
+        } finally {
+            setLoading(false)
         }
     }
 
@@ -350,35 +341,14 @@ const AdminProvider = ({children}) => {
                 setNameModel,
                 descriptionModel, 
                 setDescriptionModel,
-                setName,
-                name, 
-                setPrice,
-                price,
-                setAmount,
-                amount,
-                setDescription,
-                description, 
-                setTypeID,
-                typeID,
-                setImagenUrl, 
-                imagenUrl,
-                setXS,
-                XS,
-                setS,
-                S, 
-                setM, 
-                M, 
-                setL, 
-                L, 
-                setXL, 
-                XL,
+                product, 
+                setProduct,
                 handleSaveProduct,
                 handleGetAllBuy,
                 buys,
                 setBuys,
                 handleOnTheWay,
                 handleDelivered,
-                handleFillModal, 
                 productModal,
                 setProductModal, 
                 handleFillModel, 
@@ -387,7 +357,10 @@ const AdminProvider = ({children}) => {
                 modal, 
                 setModal, 
                 setDeleteId, 
-                handleDeleteBuy
+                handleDeleteBuy, 
+                handleRecoveryProduct, 
+                setLoading, 
+                loading
             }}
         >
             {children}
@@ -396,8 +369,7 @@ const AdminProvider = ({children}) => {
 }
 
 export {
-    AdminProvider,
-    Product
+    AdminProvider
 }
 
 export default AdminContext

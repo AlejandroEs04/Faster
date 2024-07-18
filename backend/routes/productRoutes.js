@@ -1,14 +1,13 @@
 import express from "express";
 const router = express.Router();
 
-import { create, deleteOne, findAll, update } from "../controllers/productController.js";
+import { create, deleteOne, findAll, recoveryOne, update } from "../controllers/productController.js";
 import checkAuth from "../middleware/checkAuth.js";
 
 // Rutas para Producto(s)
-router.get('/', findAll);
-router.post('/', create);
-router.post('/:id/update', checkAuth, update);
-router.get('/:id/delete', checkAuth, deleteOne);
+router.route('/').get(findAll).post(checkAuth, create)
+router.route('/:id').delete(checkAuth, deleteOne).put(checkAuth, update)
+router.route('/:id/recovery').get(checkAuth, recoveryOne)
 
 
 export default router;

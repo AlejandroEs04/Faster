@@ -12,14 +12,12 @@ const AdminProductos = () => {
 
   return (
     <>
-      <div className={`justify-center sm:m-8 ${modalAct ? 'flex' : 'hidden'}`}>
-        {modalAct && (
-          <CreateProductModal 
-            setModal={setModalAct}
-            productModal={productModal}
-          />
-        )}
-      </div>
+      {modalAct && (
+        <CreateProductModal 
+          setModal={setModalAct}
+          productModal={productModal}
+        />
+      )}
     
       <div className='flex justify-center py-10 px-5'>
         <div className='w-full md:w-1/2'>

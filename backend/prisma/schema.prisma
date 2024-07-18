@@ -128,6 +128,7 @@ model ProductBuy {
   buyID Int 
   productID Int
   cantidad Int 
+  pricePerUnit Int?
   sizeID Int
   buy Buy @relation(fields: [buyID], references: [ID])
   product Product @relation(fields: [productID], references: [ID])

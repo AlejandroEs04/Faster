@@ -119,6 +119,9 @@ const completeBuy = async(req, res) => {
         const cart = await prisma.cart.findMany({
             where: {
                 userID: user.ID
+            }, 
+            include: {
+                products: true
             }
         })
 
@@ -135,6 +138,7 @@ const completeBuy = async(req, res) => {
                 const { ID, userID, ...product } = productCart
 
                 product.buyID = buy.ID
+                product.pricePerUnit = product.products.price
 
                 return product
             })

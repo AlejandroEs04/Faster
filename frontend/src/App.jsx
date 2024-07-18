@@ -6,7 +6,6 @@ import MainLayout from './layout/MainLayout'
 import RutaProtegida from './layout/RutaProtegida'
 import Index from './pages/Index'
 import Admin from './pages/Admin'
-import AdminProductos from './pages/AdminProductos'
 import Login from './pages/Login'
 import SignUp from './pages/SignUp'
 import ConfirmAccount from './pages/ConfirmAccount'
@@ -26,6 +25,8 @@ import MoreAbout from './pages/MoreAbout'
 import Buy from './pages/Buy'
 import AdminTypes from './pages/AdminTypes';
 import ClientSupport from './pages/ClientSupport';
+import AdminProducts from './pages/AdminProducts';
+import CrudProduct from './pages/CrudProduct';
 
 function App() {
   return (
@@ -56,7 +57,9 @@ function App() {
 
             <Route path='/admin' element={<AdminLayout />}>
               <Route index element={<Admin />} />
-              <Route path='products' element={<AdminProductos />} />
+              <Route path='products' element={<AdminProducts />} />
+              <Route path='products/create' element={<CrudProduct />} />
+              <Route path='products/edit/:id' element={<CrudProduct />} />
               <Route path='buy' element={<AdminBuy />} />
               <Route path='articles' element={<AdminArticles />} />
               <Route path='types' element={<AdminTypes />} />

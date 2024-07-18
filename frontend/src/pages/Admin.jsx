@@ -8,8 +8,8 @@ const Admin = () => {
 
   return (
     <>
-      <div className='flex justify-center py-10 px-5'>
-        <div className='w-full md:w-2/3 xl:w-1/2'>
+      <div className="container mx-auto mt-10 px-4">
+        <div>
           <h1 className='text-sky-600 font-bold text-2xl uppercase'>Zona de Administracion</h1>
           <p className='text-neutral-500 font-bold'>Gestione la informacion de la pagina y de sus ventas y envios</p>
           <div className=" overflow-x-hidden">

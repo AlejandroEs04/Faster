@@ -1,4 +1,6 @@
 import express from "express";
+import { Server } from 'socket.io'
+import { createServer } from "http";
 import dotenv from "dotenv";
 import cors from "cors";
 import productoRoutes from "./routes/productRoutes.js";
@@ -43,8 +45,16 @@ app.use('/api/users', userRoutes);
 app.use('/api/buy', buyRoutes);
 app.use('/api/articles', articlesRoutes);
 
+const server = createServer(app);
+
+export const io = new Server(server, {
+    cors: {
+        origin: process.env.FRONTEND_URL
+    }
+})
+
 const PORT = process.env.PORT || 4000
 
-app.listen(PORT, () => {
+server.listen(PORT, () => {
     console.log(`El servidor esta corriendo en el puerto ${PORT}`);
 })

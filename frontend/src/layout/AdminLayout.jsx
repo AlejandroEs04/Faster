@@ -6,6 +6,7 @@ import { AdminProvider } from '../context/AdminProvider'
 import useShop from '../hooks/useShop';
 import AdminSlider from '../components/AdminSlider';
 import ConfirmModal from '../components/ConfirmModal';
+import { ToastContainer } from 'react-toastify';
 
 const AdminLayout = () => {
   const { auth, loading } = useAuth();
@@ -29,6 +30,8 @@ const AdminLayout = () => {
           </main>
         </AdminProvider> 
       ) : <Navigate to="/" />}
+
+      <ToastContainer />
     </>
   )
 }

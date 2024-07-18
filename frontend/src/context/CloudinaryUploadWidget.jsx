@@ -31,7 +31,6 @@ function CloudinaryUploadWidget({ uwConfig, setPublicId, setImageUrl }) {
                 uwConfig, 
                 (error, result) => {
                     if(!error && result.event === "success") {
-                        console.log("Done! Here is the image info: ", result.info.url);
                         setPublicId(result.info.public_id);
                         setImageUrl(result.info.url);
                     }
@@ -52,7 +51,7 @@ function CloudinaryUploadWidget({ uwConfig, setPublicId, setImageUrl }) {
         <CloudinaryScriptContext.Provider value={{ loaded }}>
             <button
                 id="upload_widget"
-                className="px-2 py-1 bg-sky-600 font-bold text-neutral-100 rounded"
+                className="px-2 py-1 bg-neutral-600 w-full font-bold text-neutral-100 rounded"
                 onClick={initializeCloudinaryWidget}
                 type="button"
             >

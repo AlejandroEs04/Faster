@@ -2,6 +2,7 @@ import { createContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { toast } from "react-toastify";
+import { socket } from "../socket";
 
 const ShopContext = createContext()
 
@@ -32,6 +33,8 @@ const ShopProvider = ({children}) => {
             getArticles();
         }
 
+        socket.on('productsUpdate', () => getProducts())
+
         getInfo();
     }, [])
 
@@ -41,8 +44,17 @@ const ShopProvider = ({children}) => {
     }
 
     const getProducts = async() => {
-        const { data } = await axios(`${import.meta.env.VITE_API_URL}/api/products`);
-        setProducts(data.products);
+        setLoad(true)
+
+        try {
+            const { data } = await axios(`${import.meta.env.VITE_API_URL}/api/products`);
+            setProducts(data.products);
+        } catch (error) {
+            console.log(error)
+        } finally {
+            setLoad(false)
+        }
+
     }
 
     const getSizes = async() => {

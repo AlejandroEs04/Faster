@@ -31,6 +31,8 @@ const Product = () => {
         }
     }, [cantidad, product])
 
+    console.log(product)
+
     return (
         <div className="flex justify-center py-5">
             <div className="w-full md:w-4/5 xl:w-1/2 mx-2">

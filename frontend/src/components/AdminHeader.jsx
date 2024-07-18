@@ -5,7 +5,7 @@ const AdminHeader = () => {
   const { setSlider, slider } = useShop();
 
   return (
-    <div className='bg-neutral-700 px-2 py-3 flex items-center justify-around'>
+    <div className='bg-neutral-800 px-2 py-3 flex items-center justify-around'>
         <Link to={'/'}>
           <img src="/img/LogoAdminWhite.png" alt="Logo Admin" className='w-32'/>
         </Link>
