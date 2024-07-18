@@ -81,7 +81,7 @@ const createOrderPaypal = async(req, res) => {
 
     const clientId = process.env.PAYPAL_CLIENT_ID;
     const clientSecret = process.env.PAYPAL_SECRET_KEY;
-    const envirement = new paypal.core.SandboxEnvironment(clientId, clientSecret)
+    const envirement = new paypal.core.LiveEnvironment(clientId, clientSecret)
     const client = new paypal.core.PayPalHttpClient(envirement)
 
     let request = new paypal.orders.OrdersCreateRequest();
