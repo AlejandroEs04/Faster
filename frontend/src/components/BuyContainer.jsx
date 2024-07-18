@@ -11,12 +11,14 @@ const BuyContainer = ({buy, setModal, btn = true, steps = true}) => {
     const checkStep = () => {
         if(buy.delivery[0].delivered) {
             setStep(100)
-        } else if(buy.delivery[0].onTheWay) {
+        } else if(buy?.delivery[0]?.onTheWay) {
             setStep(50)
         } else {
             setStep(5)
         }
     }
+
+    console.log(buy)
 
     useEffect(() => {
         checkStep()
@@ -60,7 +62,7 @@ const BuyContainer = ({buy, setModal, btn = true, steps = true}) => {
                     </div>
                 )}
                 <p className="mt-4 font-bold">Status del pedido</p>
-                {buy.delivery[0].delivered ? (
+                {buy?.delivery[0]?.delivered ? (
                     <p className=" font-semibold text-green-500">Entregado</p>
                 ) : buy.delivery[0].onTheWay ? (
                     <p className=" font-semibold text-amber-500">En camino</p>

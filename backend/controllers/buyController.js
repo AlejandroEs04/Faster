@@ -81,7 +81,7 @@ const createOrderPaypal = async(req, res) => {
 
     const clientId = process.env.PAYPAL_CLIENT_ID;
     const clientSecret = process.env.PAYPAL_SECRET_KEY;
-    const envirement = new paypal.core.LiveEnvironment(clientId, clientSecret)
+    const envirement = new paypal.core.SandboxEnvironment(clientId, clientSecret)
     const client = new paypal.core.PayPalHttpClient(envirement)
 
     let request = new paypal.orders.OrdersCreateRequest();
@@ -137,10 +137,15 @@ const completeBuy = async(req, res) => {
             const cartAct = cart?.map(productCart => {
                 const { ID, userID, ...product } = productCart
 
-                product.buyID = buy.ID
-                product.pricePerUnit = product.products.price
+                let productNew = {}
 
-                return product
+                productNew.productID = product.productID
+                productNew.buyID = buy.ID
+                productNew.cantidad = product.cantidad
+                productNew.pricePerUnit = product.products.price
+                productNew.sizeID = product.sizeID
+
+                return productNew
             })
 
             await prisma.productBuy.createMany({

@@ -61,7 +61,7 @@ const Buy = () => {
                                 <p className="font-bold text-neutral-600">Tipo: <span className="text-neutral-800 font-normal">{product.product.type.name}</span></p>
                                 <p className="font-bold text-neutral-600">Cantidad: <span className="text-neutral-800 font-normal">{product.cantidad} pzas</span></p>
 
-                                <p className="font-bold text-neutral-600">Total: <span className="text-neutral-800 font-normal">{formatearDinero(product.cantidad * product.product.price)} mxn</span></p>
+                                <p className="font-bold text-neutral-600">Total: <span className="text-neutral-800 font-normal">{formatearDinero(product.cantidad * product.pricePerUnit)} mxn</span></p>
                             </div>
                         ))}
 

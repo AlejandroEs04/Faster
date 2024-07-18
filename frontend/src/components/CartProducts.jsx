@@ -4,7 +4,7 @@ const CartProducts = ({cart, buttons}) => {
     return cart?.map(cartProduct => (
         <CartProduct 
             cartProduct={cartProduct}
-            key={cartProduct.ID}
+            key={cartProduct?.ID}
             buttons={buttons}
         />
     ))
