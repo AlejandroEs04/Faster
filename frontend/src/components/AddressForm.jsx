@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { useLocation, Link } from 'react-router-dom';
 import axios from 'axios'
 import LocationSearchInput from '../classes/LocationSearchInput'
 import useAuth from '../hooks/useAuth';
@@ -9,6 +10,8 @@ const AddressForm = ({button, active}) => {
 
     const [countries, setCountries] = useState([]);
     const [disable, setDisable] = useState(false);
+
+    const {pathname} = useLocation()
 
     // Variables del formulario
     const [address, setAddress] = useState(auth.address);
@@ -58,8 +61,6 @@ const AddressForm = ({button, active}) => {
 
         setDisable(active)
     }, [])
-
-    
 
     return (
         <form 
@@ -185,9 +186,9 @@ const AddressForm = ({button, active}) => {
                     className='px-2 py-1 bg-sky-600 hover:bg-sky-700 transition-colors text-neutral-100 font-bold mt-4 rounded'
                 >Guardar Direccion</button>
             ) : (
-                <button
+                <Link to={'/user/porfile/address'}
                     className='px-2 py-1 bg-neutral-600 hover:bg-neutral-700 transition-colors text-neutral-100 font-bold mt-4 rounded'
-                >Editar Direccion</button>
+                >Editar Direccion</Link>
             )}
 
             <p className='mt-2 font-bold'>Por el momento solo se hacen entregas dentro del <span className='text-sky-600'>Area Metropolitana de Monterrey</span></p>
