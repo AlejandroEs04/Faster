@@ -27,7 +27,7 @@ const AdminProducts = () => {
     }, [products, productsActive])
 
     return (
-        <div className="container mx-auto mt-10 px-4">
+        <div className="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8 my-10">
             <div className='flex flex-col md:flex-row md:items-end justify-between'>
                 <div>
                     <h1 className='text-4xl font-semibold text-sky-600'>Productos</h1>

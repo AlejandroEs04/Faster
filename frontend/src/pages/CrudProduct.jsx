@@ -78,7 +78,7 @@ const CrudProduct = () => {
     }, [products, id])
 
     return (
-        <div className="container mx-auto my-10 px-4">
+        <div className="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8 my-10">
             <BackButton />
 
             <h1 className='text-3xl font-semibold text-sky-600'>{product?.ID ? 'Editar' : 'Crear'} Producto</h1>

@@ -80,8 +80,7 @@ const BuySeccion = () => {
           <div className='bg-white rounded shadow-lg py-2'>
             <h3 className='px-5 text-lg font-bold text-neutral-600 mt-1'>Direccion de entrega</h3>
             <AddressForm 
-              button={false}
-              active={true}
+              button
             />
 
             <div className='flex justify-center mb-5'>

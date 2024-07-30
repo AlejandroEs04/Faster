@@ -11,8 +11,6 @@ const AddressForm = ({button, active}) => {
     const [countries, setCountries] = useState([]);
     const [disable, setDisable] = useState(false);
 
-    const {pathname} = useLocation()
-
     // Variables del formulario
     const [address, setAddress] = useState(auth.address);
     const [street, setStreet] = useState(auth.street);
