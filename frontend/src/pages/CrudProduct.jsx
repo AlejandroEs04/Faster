@@ -64,6 +64,16 @@ const CrudProduct = () => {
                 ...currentProduct, 
                 detProductSize : sizes
             })
+        } else {
+            setProduct({
+                name : '', 
+                price : 0, 
+                amount : 100, 
+                typeID : 0, 
+                description : '', 
+                imageUrl : '', 
+                detProductSize : []
+            })
         }
     }, [products, id])
 
