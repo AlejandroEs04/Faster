@@ -59,16 +59,12 @@ const BuySeccion = () => {
       const calculoAmount = cart.reduce((amount, cartProduct) => amount + cartProduct.cantidad, 0)
       setAmount(calculoAmount)
 
-      if(auth.state === 'Nuevo León' || auth.state === 'Nuevo Leon') {
-        if(auth.city === 'Apodaca' || auth.city === 'Guadalupe' || auth.city === 'General Escobedo' || auth.city === 'Escobedo' || auth.city === 'San Nicolás' || auth.city === 'San Nicolas' || auth.city === 'San Pedro Garza García' || auth.city === 'San Pedro Garza Garcia' || auth.city === 'Santa Catarina') {
-          setSent(100);
-        } else {
-          setSent(400)
-        }
+      if(['apodaca', 'guadalupe', 'general escobedo', 'escobedo', 'san nicolas', 'san nicolás', 'san pedro garza garcia', 'san pedro garza garcía', 'santa catarina'].includes(auth.city.trim().toLowerCase())) {
+        setSent(99)
       } else {
-        const calculoSent = cart.reduce((sent, cartProduct) => sent + cartProduct.cantidad * 0, 0)
-        setSent(calculoSent)
+        setSent(159)
       }
+
     }
   }, [cart])
 

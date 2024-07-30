@@ -93,11 +93,11 @@ const CrudProduct = () => {
                                 ))}
                             </Select>
 
-                            <div className='grid grid-cols-1 md:grid-cols-2 gap-3'>
+                            <div className='flex flex-col md:grid md:grid-cols-2 gap-3'>
                                 <Input type='number' onChange={handleChange} name='price' id='price' label='Precio' value={product?.price} placeholder='Precio del producto' />
                                 <Input type='number' onChange={handleChange} name='amount' id='amount' label='Cantidad p/caja' value={product?.amount} placeholder='Cantidad por caja' />
 
-                                <div className='grid grid-cols-2 col-span-2 gap-3 border-2 p-3 border-dashed'>
+                                <div className='flex flex-col md:grid grid-cols-2 col-span-2 gap-3 border-2 p-3 border-dashed'>
                                     <div className='flex flex-col gap-5'>
                                         <div>
                                             <label htmlFor="image">Imagen</label>
