@@ -60,9 +60,9 @@ const BuySeccion = () => {
       setAmount(calculoAmount)
 
       if(['apodaca', 'guadalupe', 'general escobedo', 'escobedo', 'san nicolas', 'san nicolás', 'san pedro garza garcia', 'san pedro garza garcía', 'santa catarina'].includes(auth.city.trim().toLowerCase())) {
-        setSent(99)
+        setSent(0)
       } else {
-        setSent(159)
+        setSent(0)
       }
 
     }
