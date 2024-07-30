@@ -73,9 +73,9 @@ const BuySeccion = () => {
   }, [subtotal])
 
   return (
-    <div className='flex flex-col items-center py-10'>
-      <h1 className='text-2xl font-bold uppercase text-sky-600'>Finalizar Compra</h1>
-      <div className='flex flex-col-reverse md:w-3/4 lg:grid lg:grid-cols-2 w-full xl:w-1/2 px-4 gap-5 mt-5'>
+    <div className='mx-auto max-w-7xl px-2 sm:px-6 lg:px-8 my-10'>
+      <h1 className='text-2xl font-bold uppercase text-sky-600 text-center'>Finalizar Compra</h1>
+      <div className='flex flex-col-reverse md:grid md:grid-cols-2 w-full px-4 gap-5 mt-5'>
         <div className='flex flex-col gap-4 min-h-full '>
           <div className='bg-white rounded shadow-lg py-2'>
             <h3 className='px-5 text-lg font-bold text-neutral-600 mt-1'>Direccion de entrega</h3>

@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import useShop from '../hooks/useShop'
 import { formatearDinero } from "../helpers";
 
-const ProductsList = ({text = 'Productos', textColor = 'text-sky-600'}) => {
+const ProductsList = ({text = 'Productos', textColor = 'text-sky-600', fullWidth = false}) => {
     const [knowMore, setKnowMore] = useState(false);
     const { products } = useShop();
 
@@ -11,9 +11,9 @@ const ProductsList = ({text = 'Productos', textColor = 'text-sky-600'}) => {
         <div className="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8 my-10">
             <h2 className={`font-bold text-3xl uppercase ${textColor} text-center mb-4`}>{text}</h2>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-x-5 lg:gap-x-20 gap-y-8">
+            <div className={`grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 ${fullWidth ? 'gap-x-8' : 'gap-x-5 lg:gap-x-20'} gap-y-8`}>
                 {products?.map(product => (
-                    <div key={product.ID} className="w-full bg-slate-50 flex flex-col p-4 rounded-sm shadow-md justify-between">
+                    <div key={product.ID} className="w-full bg-white flex flex-col p-4 rounded-sm shadow-md hover:shadow-xl transition-shadow justify-between">
                         <div className="pb-2 border-b flex justify-center">
                             <img src={product.imageUrl} alt={`Imagen Producto ${product.name}`} className="max-w-72 w-full" />
                         </div>

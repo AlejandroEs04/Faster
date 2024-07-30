@@ -40,11 +40,11 @@ const Cart = () => {
 
   return (
     <>
-      <div className='flex flex-col items-center py-10'>
-        <h1 className='font-bold uppercase text-sky-600 text-3xl'>Carrito</h1>
-        <div className='flex flex-col lg:grid lg:grid-cols-2 w-full md:w-1/2 px-4 gap-5 my-5 mb-12 md:min-w-max'>
+      <div className='mx-auto max-w-7xl px-2 sm:px-6 lg:px-8 my-10'>
+        <h1 className='font-bold uppercase text-sky-600 text-3xl text-center'>Carrito</h1>
+        <div className='flex flex-col md:grid md:grid-cols-2 w-full gap-5 mt-5'>
           <div>
-            <div className='flex flex-col justify-center gap-4 min-h-full w-full md:max-w-lg'>
+            <div className='flex flex-col justify-center gap-4 min-h-full w-full'>
               {load && cart.length <= 0 && (
                 <Loader />
               )}
