@@ -306,15 +306,7 @@ const getCart = async(req, res) => {
                 userID: user.ID
             },
             include: {
-                products: {
-                    select: {
-                        ID: true,
-                        name: true,
-                        price: true,
-                        imageUrl: true, 
-                        wholesalePrice: true
-                    }
-                },
+                products: true,
                 user: {
                     select: {
                         ID: true,

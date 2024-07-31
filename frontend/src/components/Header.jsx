@@ -8,7 +8,7 @@ const Header = () => {
 
   return (
     <>
-      <header className='top-0 sticky bg-neutral-300 bg-opacity-65 backdrop-blur-lg w-full flex items-center justify-around px-2 py-3 shadow-lg z-10'>
+      <header className='top-0 sticky bg-white w-full flex items-center justify-around px-2 py-3 shadow-lg z-10'>
         <Link to={'/'} className='flex h-full items-start'>
           <img src="/img/Logo.png" alt="Logo Faster Gloves" className='w-32' />
         </Link>
