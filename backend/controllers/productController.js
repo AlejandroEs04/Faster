@@ -151,10 +151,40 @@ const recoveryOne = async(req, res) => {
     }
 }
 
+const deleteProductSize = async(req, res) => {
+    const { productID, sizeID } = req.params
+
+    try {
+        const size = await prisma.detProductSize.findFirst({
+            where: {
+                sizeID: +sizeID, 
+                productID: +productID
+            }
+        })
+
+        await prisma.detProductSize.delete({
+            where : {
+                ID : size.ID
+            }
+        })
+    } catch (error) {
+        console.log(error)
+
+        return res.status(500).json({
+            msg: "Hubo un error, por favor, intente mas tarde"
+        })
+    }
+
+    io.emit('productsUpdate')
+
+    return res.status(200).json({ msg: "Talla Eliminada Correctamente" })
+}
+
 export {
     findAll,
     create, 
     update,
     deleteOne, 
-    recoveryOne
+    recoveryOne, 
+    deleteProductSize
 }

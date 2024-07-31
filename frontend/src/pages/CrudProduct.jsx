@@ -6,7 +6,6 @@ import useAdmin from '../hooks/useAdmin'
 import Input from '../components/Input'
 import Select from '../components/Select'
 import Textarea from '../components/Textarea'
-import CheckBox from '../components/CheckBox'
 import BackButton from '../components/BackButton'
 import LoaderMain from '../components/LoaderMain'
 
@@ -14,7 +13,7 @@ const CrudProduct = () => {
     const [imageUrl, setImageUrl] = useState('')
     const [currentSize, setCurrentSize] = useState(0)
     const { types, sizes, products } = useShop();
-    const { product, setProduct, handleSaveProduct, loading } = useAdmin();
+    const { product, setProduct, handleSaveProduct, loading, handleDeleteProductSize } = useAdmin();
 
     const { id } = useParams()
 
@@ -46,6 +45,18 @@ const CrudProduct = () => {
         })
     }
 
+    const handleDeleteSize = (sizeID) => {
+        if(id) {
+            handleDeleteProductSize(id, sizeID)
+        } else {
+            console.log("Aqui")
+            const newSizes = product.detProductSize.filter(size => size.ID !== sizeID)
+            setProduct({
+                ...product, 
+                detProductSize : newSizes
+            })
+        }
+    }
     
     useEffect(() => {
         setProduct({
@@ -144,7 +155,7 @@ const CrudProduct = () => {
                                         <div key={size.letter} className='flex items-center justify-between w-full bg-white p-1.5 rounded'>
                                             <p className='' key={size.ID}>{size.name}</p>
                                             <div>
-                                                <button type='button' disabled className='text-sm bg-red-500 text-white p-1 rounded disabled:bg-red-200'>Eliminar</button>
+                                                <button onClick={() => handleDeleteSize(size.ID)} type='button' className='text-sm bg-red-500 text-white p-1 rounded disabled:bg-red-200'>Eliminar</button>
                                             </div>
                                         </div>
                                     ))}

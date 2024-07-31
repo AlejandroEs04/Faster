@@ -128,6 +128,31 @@ const AdminProvider = ({children}) => {
         }
     }
 
+    const handleDeleteProductSize = async(productID, sizeID) => {
+        const token = localStorage.getItem('token');
+        
+        const config = {
+            headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${token}`
+            }
+        }
+
+        setLoading(true)
+
+        try {
+            const { data } = await axios.delete(`${import.meta.env.VITE_API_URL}/api/products/${productID}/sizes/${sizeID}`, config)
+
+            toast.error(data.msg, {
+                position: toast.POSITION.BOTTOM_RIGHT
+            })
+        } catch (error) {
+            console.log(error)
+        } finally {
+            setLoading(false)
+        }
+    }
+
     /** BUYS CRUD */
     const handleGetAllBuy = async() => {
         const token = localStorage.getItem('token');
@@ -360,7 +385,8 @@ const AdminProvider = ({children}) => {
                 handleDeleteBuy, 
                 handleRecoveryProduct, 
                 setLoading, 
-                loading
+                loading, 
+                handleDeleteProductSize
             }}
         >
             {children}
