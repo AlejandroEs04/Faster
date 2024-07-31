@@ -75,7 +75,7 @@ const AdminBuy = () => {
   }, [step])
 
   return (
-    <div className="container mx-auto mt-10 px-4">
+    <div className="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8 my-10">
       <div>
         <h1 className='text-center font-bold text-neutral-600 text-2xl uppercase'>Historial de compras</h1>
         <p className='text-center text-lg font-light'>Desde esta seccion podra ver el historial de compras que se han realizado</p>

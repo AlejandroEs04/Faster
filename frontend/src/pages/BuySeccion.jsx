@@ -59,16 +59,12 @@ const BuySeccion = () => {
       const calculoAmount = cart.reduce((amount, cartProduct) => amount + cartProduct.cantidad, 0)
       setAmount(calculoAmount)
 
-      if(auth.state === 'Nuevo León' || auth.state === 'Nuevo Leon') {
-        if(auth.city === 'Apodaca' || auth.city === 'Guadalupe' || auth.city === 'General Escobedo' || auth.city === 'Escobedo' || auth.city === 'San Nicolás' || auth.city === 'San Nicolas' || auth.city === 'San Pedro Garza García' || auth.city === 'San Pedro Garza Garcia' || auth.city === 'Santa Catarina') {
-          setSent(100);
-        } else {
-          setSent(400)
-        }
+      if(['apodaca', 'guadalupe', 'general escobedo', 'escobedo', 'san nicolas', 'san nicolás', 'san pedro garza garcia', 'san pedro garza garcía', 'santa catarina'].includes(auth.city.trim().toLowerCase())) {
+        setSent(0)
       } else {
-        const calculoSent = cart.reduce((sent, cartProduct) => sent + cartProduct.cantidad * 0, 0)
-        setSent(calculoSent)
+        setSent(0)
       }
+
     }
   }, [cart])
 
@@ -77,15 +73,14 @@ const BuySeccion = () => {
   }, [subtotal])
 
   return (
-    <div className='flex flex-col items-center py-10'>
-      <h1 className='text-2xl font-bold uppercase text-sky-600'>Finalizar Compra</h1>
-      <div className='flex flex-col-reverse md:w-3/4 lg:grid lg:grid-cols-2 w-full xl:w-1/2 px-4 gap-5 mt-5'>
+    <div className='mx-auto max-w-7xl px-2 sm:px-6 lg:px-8 my-10'>
+      <h1 className='text-2xl font-bold uppercase text-sky-600 text-center'>Finalizar Compra</h1>
+      <div className='flex flex-col-reverse md:grid md:grid-cols-2 w-full px-4 gap-5 mt-5'>
         <div className='flex flex-col gap-4 min-h-full '>
           <div className='bg-white rounded shadow-lg py-2'>
             <h3 className='px-5 text-lg font-bold text-neutral-600 mt-1'>Direccion de entrega</h3>
             <AddressForm 
-              button={false}
-              active={true}
+              button
             />
 
             <div className='flex justify-center mb-5'>

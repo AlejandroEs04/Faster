@@ -18,7 +18,7 @@ const AdminTypes = () => {
                 )}
             </div>
             
-            <div className="container mx-auto mt-10 px-4">
+            <div className="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8 my-10">
                 <div>
                     <h1 className='font-bold text-2xl uppercase text-sky-600'>Gestiona los modelos</h1>
                     <p className='text-lg text-neutral-600'>Administra, crea, actualiza o elimina modelos</p>

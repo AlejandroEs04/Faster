@@ -75,11 +75,21 @@ const CrudProduct = () => {
                 ...currentProduct, 
                 detProductSize : sizes
             })
+        } else {
+            setProduct({
+                name : '', 
+                price : 0, 
+                amount : 100, 
+                typeID : 0, 
+                description : '', 
+                imageUrl : '', 
+                detProductSize : []
+            })
         }
     }, [products, id])
 
     return (
-        <div className="container mx-auto my-10 px-4">
+        <div className="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8 my-10">
             <BackButton />
 
             <h1 className='text-3xl font-semibold text-sky-600'>{product?.ID ? 'Editar' : 'Crear'} Producto</h1>
@@ -104,11 +114,11 @@ const CrudProduct = () => {
                                 ))}
                             </Select>
 
-                            <div className='grid grid-cols-1 md:grid-cols-2 gap-3'>
+                            <div className='flex flex-col md:grid md:grid-cols-2 gap-3'>
                                 <Input type='number' onChange={handleChange} name='price' id='price' label='Precio' value={product?.price} placeholder='Precio del producto' />
                                 <Input type='number' onChange={handleChange} name='amount' id='amount' label='Cantidad p/caja' value={product?.amount} placeholder='Cantidad por caja' />
 
-                                <div className='grid grid-cols-2 col-span-2 gap-3 border-2 p-3 border-dashed'>
+                                <div className='flex flex-col md:grid grid-cols-2 col-span-2 gap-3 border-2 p-3 border-dashed'>
                                     <div className='flex flex-col gap-5'>
                                         <div>
                                             <label htmlFor="image">Imagen</label>

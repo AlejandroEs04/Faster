@@ -14,7 +14,7 @@ const MainLayout = () => {
       {slider && (
         <Slider />
       )}
-      <main className={`bg-white ${slider && 'overflow-y-hidden'}`}>
+      <main className={`bg-gary-50 ${slider && 'overflow-y-hidden'}`}>
         <Header />
         <div>
           <Outlet />

@@ -8,7 +8,7 @@ const Admin = () => {
 
   return (
     <>
-      <div className="container mx-auto mt-10 px-4">
+      <div className="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8 my-10">
         <div>
           <h1 className='text-sky-600 font-bold text-2xl uppercase'>Zona de Administracion</h1>
           <p className='text-neutral-500 font-bold'>Gestione la informacion de la pagina y de sus ventas y envios</p>

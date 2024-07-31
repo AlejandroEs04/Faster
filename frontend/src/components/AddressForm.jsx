@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { useLocation, Link } from 'react-router-dom';
 import axios from 'axios'
 import LocationSearchInput from '../classes/LocationSearchInput'
 import useAuth from '../hooks/useAuth';
@@ -17,9 +18,9 @@ const AddressForm = ({button, active}) => {
     const [internNumber, setInternNumber] = useState(auth.internNumber);
     const [neighborhood, setNeighborhood] = useState(auth.neighborhood);
     const [city, setCity] = useState(auth.city);
-    const [state, setState] = useState(auth.state);
+    const [state, setState] = useState('Nuevo Léon');
     const [postalCode, setPostalCode] = useState(auth.postalCode);
-    const [country, setCountry] = useState(auth.country);
+    const [country, setCountry] = useState('Mexico');
 
     const handleSaveAddress = async() => {
         const token = localStorage.getItem('token');
@@ -142,19 +143,6 @@ const AddressForm = ({button, active}) => {
             </div>
 
             <div className='flex flex-col'>
-                <label className='font-medium text-neutral-500' htmlFor='state'>Estado / Provincia</label>
-                <input 
-                    type='text' 
-                    placeholder='Estado / Provincia' 
-                    id='state'
-                    className='px-2 py-1 border'
-                    value={state}
-                    onChange={e => setState(e.target.value)}
-                    disabled={disable}
-                />
-            </div>
-
-            <div className='flex flex-col'>
                 <label className='font-medium text-neutral-500' htmlFor='postalCode'>Codigo Postal</label>
                 <input 
                     type='text' 
@@ -166,11 +154,24 @@ const AddressForm = ({button, active}) => {
                     disabled={disable}
                 />
             </div>
-            
+
+            <div className='flex flex-col'>
+                <label className='font-medium text-neutral-500' htmlFor='state'>Estado / Provincia</label>
+                <input 
+                    type='text' 
+                    placeholder='Estado / Provincia' 
+                    id='state'
+                    className='px-2 py-1 border'
+                    value={state}
+                    onChange={e => setState(e.target.value)}
+                    disabled
+                />
+            </div>
+
             <div className='flex flex-col'>
                 <label className='font-medium text-neutral-500' htmlFor='postalCode'>País</label>
-                <select className='px-2 py-1 border' onChange={e => setCountry(e.target.value)} value={country} disabled={disable}>
-                    {countries?.map(country => (
+                <select className='px-2 py-1 border' onChange={e => setCountry(e.target.value)} value={country} disabled>
+                    {countries?.sort((a, b) => b.name.common-a.name.common).map(country => (
                         <option key={country.cca2} value={country.name.common} >
                             {country.name.common}
                         </option>
@@ -183,9 +184,9 @@ const AddressForm = ({button, active}) => {
                     className='px-2 py-1 bg-sky-600 hover:bg-sky-700 transition-colors text-neutral-100 font-bold mt-4 rounded'
                 >Guardar Direccion</button>
             ) : (
-                <button
+                <Link to={'/user/porfile/address'}
                     className='px-2 py-1 bg-neutral-600 hover:bg-neutral-700 transition-colors text-neutral-100 font-bold mt-4 rounded'
-                >Editar Direccion</button>
+                >Editar Direccion</Link>
             )}
 
             <p className='mt-2 font-bold'>Por el momento solo se hacen entregas dentro del <span className='text-sky-600'>Area Metropolitana de Monterrey</span></p>

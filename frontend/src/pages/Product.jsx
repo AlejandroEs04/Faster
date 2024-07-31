@@ -34,8 +34,7 @@ const Product = () => {
     console.log(product)
 
     return (
-        <div className="flex justify-center py-5">
-            <div className="w-full md:w-4/5 xl:w-1/2 mx-2">
+            <div className="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8 my-10">
                 <h1 className="text-2xl font-bold uppercase">{product?.type?.name}</h1> 
                     <div className=" text-neutral-800 rounded flex flex-col md:flex-row gap-10 mt-5">
                         <div className="w-full md:w-1/2">
@@ -136,7 +135,6 @@ const Product = () => {
                         </div>
                     </div>
             </div>
-        </div>
     )
 }
 

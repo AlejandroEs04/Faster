@@ -11,7 +11,7 @@ const Input = ({
 }) => {
 
   return (
-    <div>
+    <div className='w-full'>
         <label htmlFor={id}>{label}</label>
         <input 
             type={type} 
