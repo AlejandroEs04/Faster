@@ -17,6 +17,7 @@ model Product {
   description String
   typeID Int
   price Float
+  wholesalePrice Float @default(1000)
   amount Int
   imageUrl String
   detProductSize DetProductSize[]
@@ -25,6 +26,14 @@ model Product {
   type Type @relation(fields: [typeID], references: [ID])
   cart Cart[]
   productBuy ProductBuy[]
+  images ProductImage[]
+}
+
+model ProductImage {
+  ID Int @id @default(autoincrement())
+  productID Int 
+  imageUrl String
+  product Product @relation(fields: [productID], references: [ID])
 }
 
 model Size {

@@ -1,9 +1,7 @@
-import { useState } from 'react';
 import useShop from '../hooks/useShop'
 import ProductContainer from "./ProductContainer";
 
 const ProductsList = ({text = 'Productos', textColor = 'text-sky-600', fullWidth = false}) => {
-    const [knowMore, setKnowMore] = useState(false);
     const { products } = useShop();
 
     return (

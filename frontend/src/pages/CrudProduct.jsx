@@ -8,6 +8,8 @@ import Select from '../components/Select'
 import Textarea from '../components/Textarea'
 import BackButton from '../components/BackButton'
 import LoaderMain from '../components/LoaderMain'
+import ProductImagesCrud from '../components/ProductImagesCrud'
+import ImageCrudContainer from '../components/ImageCrudContainer'
 
 const CrudProduct = () => {
     const [imageUrl, setImageUrl] = useState('')
@@ -79,11 +81,13 @@ const CrudProduct = () => {
             setProduct({
                 name : '', 
                 price : 0, 
+                wholesalePrice: 0,
                 amount : 100, 
                 typeID : 0, 
                 description : '', 
                 imageUrl : '', 
-                detProductSize : []
+                detProductSize : [], 
+                images: []
             })
         }
     }, [products, id])
@@ -117,15 +121,13 @@ const CrudProduct = () => {
                             <div className='flex flex-col md:grid md:grid-cols-2 gap-3'>
                                 <Input type='number' onChange={handleChange} name='price' id='price' label='Precio' value={product?.price} placeholder='Precio del producto' />
                                 <Input type='number' onChange={handleChange} name='amount' id='amount' label='Cantidad p/caja' value={product?.amount} placeholder='Cantidad por caja' />
+                                <Input type='number' onChange={handleChange} name='wholesalePrice' id='wholesalePrice' label='Precio p/caja' value={product?.wholesalePrice} placeholder='Precio por caja' />
 
                                 <div className='flex flex-col md:grid grid-cols-2 col-span-2 gap-3 border-2 p-3 border-dashed'>
                                     <div className='flex flex-col gap-5'>
-                                        <div>
-                                            <label htmlFor="image">Imagen</label>
-                                            <CloudinaryImageWidget 
-                                                setImagenUrl={setImageUrl}
-                                            />
-                                        </div>
+                                        <ImageCrudContainer 
+                                            setImageUrl={setImageUrl}
+                                        />
                                     </div>
 
                                     <div className="flex justify-center items-center">
@@ -180,10 +182,15 @@ const CrudProduct = () => {
                                 <button className='px-2 py-1 bg-sky-600 text-white rounded mt-2' type="submit">{product?.ID ? 'Editar' : 'Crear'} Producto</button>
                             </div>
                         )}
-                
                     </div>
                 </div>
             </form>
+
+            {product?.ID && (
+                <ProductImagesCrud 
+                    images={product?.images}
+                />
+            )}
         </div>
     )
 }

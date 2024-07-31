@@ -311,7 +311,8 @@ const getCart = async(req, res) => {
                         ID: true,
                         name: true,
                         price: true,
-                        imageUrl: true
+                        imageUrl: true, 
+                        wholesalePrice: true
                     }
                 },
                 user: {

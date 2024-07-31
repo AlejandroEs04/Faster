@@ -25,7 +25,7 @@ const Product = () => {
 
     useEffect(() => {
         if(cantidad % 10 === 0 && cantidad > 0) {
-            setTotal((cantidad / 10) * 1000);
+            setTotal((cantidad / 10) * product?.wholesalePrice);
         } else {
             setTotal(cantidad * product?.price)
         }
@@ -51,10 +51,10 @@ const Product = () => {
 
                                 <p className="mt-4">Material: <span className="text-neutral-800 uppercase font-bold">{product?.type?.name}</span></p>
 
-                                <p className="mt-1">Cantidad de guantes por caja: <span className="text-neutral-50 font-bold">{product?.amount} c/u</span></p>
+                                <p className="mt-1">Cantidad de guantes por caja: <span className="text-neutral-800 font-bold">{product?.amount} c/u</span></p>
 
                                 <p className="mt-1 text-lg text-sky-600 font-semibold">Precio: <span className="text-neutral-700 font-bold text-xl">{formatearDinero(+product?.price)} MXN</span></p>
-                                <p className="text-sm">Por cada 10 cajas de guantes del mismo material y talla, en <span className="text-neutral-700 font-bold text-lg">{formatearDinero(1000)}</span></p>
+                                <p className="text-sm">Por cada 10 cajas de guantes del mismo material y talla, en <span className="text-neutral-700 font-bold text-lg">{formatearDinero(+product?.wholesalePrice)}</span></p>
                             </div>
                         </div>
 

@@ -38,6 +38,7 @@ const create = async(req, res) => {
             data: {
                 name: product.name,
                 price: +product.price,
+                wholesalePrice: +product.wholesalePrice,
                 amount: +product.amount,
                 typeID: +product.typeID,
                 description: product.description,
@@ -94,6 +95,7 @@ const update = async(req, res) => {
             data: {
                 name: product.name,
                 price: +product.price,
+                wholesalePrice: +product.wholesalePrice,
                 amount: +product.amount,
                 typeID: +product.typeID,
                 description: product.description,
