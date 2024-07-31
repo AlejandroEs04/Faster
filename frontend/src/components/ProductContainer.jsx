@@ -6,9 +6,9 @@ const ProductContainer = ({ product }) => {
     const [knowMore, setKnowMore] = useState(false)
 
     return (
-        <Link to={`/products/${product.ID}`} key={product.ID} className="w-full max-w-72 bg-slate-50 flex flex-col p-4 rounded-sm shadow-md">
-            <div className="pb-2 border-b">
-                <img src={product.imageUrl} alt={`Imagen Producto ${product.name}`} />
+        <div className="w-full bg-white flex flex-col p-4 rounded-sm shadow-md hover:shadow-xl transition-shadow justify-between">
+            <div className="pb-2 border-b flex justify-center">
+                <img src={product.imageUrl} alt={`Imagen Producto ${product.name}`} className="max-w-72 w-full" />
             </div>
 
             <div className="py-2 flex flex-col">
@@ -38,7 +38,7 @@ const ProductContainer = ({ product }) => {
 
                 <Link to={`/products/${product.ID}`} className="bg-sky-500 text-white px-2 py-1 rounded mt-2 text-center hover:bg-sky-600 transition-colors">Saber más</Link>
             </div>
-        </Link>
+        </div>
     )
 }
 
