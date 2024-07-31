@@ -45,10 +45,10 @@ const BuySeccion = () => {
         // El carrito tiene mas de 10 productos 
         cartProduct.cantidad >= 10 ?
         // El residuo de la cantidad de productos es 0
-        cartProduct.cantidad % 10 === 0 ? (1000 * (cartProduct.cantidad / 10)) : 
+        cartProduct.cantidad % 10 === 0 ? (cartProduct.products.wholesalePrice * (cartProduct.cantidad / 10)) : 
 
         // El residuo no es 0 pero es mayor a 10
-        ((Math.floor(cartProduct.cantidad / 10) * 1000) + ((cartProduct.cantidad % 10) * cartProduct.products.price)) :
+        ((Math.floor(cartProduct.cantidad / 10) * cartProduct.products.wholesalePrice) + ((cartProduct.cantidad % 10) * cartProduct.products.price)) :
 
         // La cantidad de productos no es mayor a 10
         (cartProduct.products.price * cartProduct.cantidad))
