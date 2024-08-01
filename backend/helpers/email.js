@@ -12,21 +12,25 @@ export const emailRegistro = async(datos) => {
       pass: "rQ9PwsIb3cNGvYA4"
     }
   });
+  
+  try {
+    // Email info
+    await transport.sendMail({
+      from: '"Faster-Guantes" <cuentas@faztershop.com>',
+      to: email, 
+      subject: 'Confirmar cuenta',
+      text: "Comprueba tu cuenta en FazterShop-Guantes",
+      html: `
+        <p>Hola: ${name} comprueba tu cuenta en FazterShop</p>
+        <p>Tu cuenta ya esta casi lista, solo debes comprobarla en el siguiente enlace:</p>
+        <a href="${process.env.FRONTEND_URL}/confirm-account/${token}">Comprobar cuenta</a>
 
-  // Email info
-  await transport.sendMail({
-    from: '"Faster-Guantes" <cuentas@faztershop.com>',
-    to: email, 
-    subject: 'Confirmar cuenta',
-    text: "Comprueba tu cuenta en FazterShop-Guantes",
-    html: `
-      <p>Hola: ${name} comprueba tu cuenta en FazterShop</p>
-      <p>Tu cuenta ya esta casi lista, solo debes comprobarla en el siguiente enlace:</p>
-      <a href="${process.env.FRONTEND_URL}/confirm-account/${token}">Comprobar cuenta</a>
-
-      <p>Si tu no creaste esta cuenta, puedes ignorar el mensaje</p>
-     `
-  });
+        <p>Si tu no creaste esta cuenta, puedes ignorar el mensaje</p>
+      `
+    });
+  } catch (error) {
+    console.log(error)
+  }
 };
 
 export const emailForgetPassword = async(datos) => {

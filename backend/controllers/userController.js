@@ -83,10 +83,10 @@ const auth = async(req, res) => {
         return res.status(404).json({msg: error.message});
     }
 
-    if(!user.confirmado) {
-        const error = new Error("El usuario no esta confirmado");
-        return res.status(404).json({msg: error.message});
-    }
+    // if(!user.confirmado) {
+    //     const error = new Error("El usuario no esta confirmado");
+    //     return res.status(404).json({msg: error.message});
+    // }
 
     if(await checkPassword(password, user.password)) {
         res.json({

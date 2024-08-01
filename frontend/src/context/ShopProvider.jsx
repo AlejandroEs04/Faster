@@ -305,7 +305,7 @@ const ShopProvider = ({children}) => {
                 position: toast.POSITION.BOTTOM_RIGHT
             })
 
-            navigate('/');
+            navigate('/user/porfile/orders');
         } catch (error) {
             console.log(error)
         }

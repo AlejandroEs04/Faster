@@ -106,7 +106,7 @@ const SignUp = () => {
                     value={password}
                 />
 
-                <p className="text-neutral-500 text-sm mt-1">El password debe tener 9 o más carácteres</p>
+                <p className="text-neutral-500 text-sm mt-1">El password debe tener 10 o más carácteres</p>
             </div>
           </div>
 

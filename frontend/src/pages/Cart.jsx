@@ -43,7 +43,7 @@ const Cart = () => {
     <>
       <div className='mx-auto max-w-7xl px-2 sm:px-6 lg:px-8 my-10'>
         <h1 className='font-bold uppercase text-sky-600 text-3xl text-center'>Carrito</h1>
-        <div className='flex flex-col md:grid md:grid-cols-2 w-full gap-5 mt-5'>
+        <div className='flex flex-col md:grid md:grid-cols-2 w-full gap-5 mt-5 mb-10'>
           <div>
             <div className='flex flex-col justify-center gap-4 min-h-full w-full'>
               {load && cart.length <= 0 && (
@@ -86,12 +86,13 @@ const Cart = () => {
             </div>
           </div>
         </div>
+      
+        <ProductsList 
+          text='Productos que te pueden interesar'
+          textColor='text-neutral-600'
+        />
       </div>
 
-      <ProductsList 
-        text='Productos que te pueden interesar'
-        textColor='text-neutral-600'
-      />
     </>
   )
 }

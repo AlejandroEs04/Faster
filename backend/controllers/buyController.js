@@ -190,13 +190,21 @@ const completeBuy = async(req, res) => {
 const updateBuy = async(req, res) => {
     const { id } = req.params;
     const data = req.body
-    const { user } = req
 
     try {
         if(data.onTheWay) {
             const delivery = await prisma.delivery.findFirst({
                 where: {
                     buyID: +id
+                }, 
+                include: {
+                    buy: true
+                }
+            })
+
+            const user = await prisma.user.findFirst({
+                where: {
+                    ID: delivery.buy.userID
                 }
             })
 
@@ -221,6 +229,15 @@ const updateBuy = async(req, res) => {
             const delivery = await prisma.delivery.findFirst({
                 where: {
                     buyID: +id
+                }, 
+                include: {
+                    buy: true
+                }
+            })
+
+            const user = await prisma.user.findFirst({
+                where: {
+                    ID: delivery.buy.userID
                 }
             })
 

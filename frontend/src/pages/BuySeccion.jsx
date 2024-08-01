@@ -19,7 +19,6 @@ const BuySeccion = () => {
 
   const checkAddress = () => {
     if(
-      auth.address === '' ||
       auth.city === '' ||
       auth.state === '' ||
       auth.country === '' ||
@@ -82,15 +81,6 @@ const BuySeccion = () => {
             <AddressForm 
               button
             />
-
-            <div className='flex justify-center mb-5'>
-              {!completeAddress && (
-                <Link 
-                  className='bg-sky-600 text-neutral-100 font-bold text-center px-2 py-1 rounded mt-5 hover:bg-sky-700 transition-colors'
-                  to={'/user/porfile/address'}
-                >Registrar dirección</Link>
-              )}
-            </div>
           </div>
           <CartProducts 
             cart={cart}

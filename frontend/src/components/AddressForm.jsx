@@ -12,7 +12,7 @@ const AddressForm = ({button, active}) => {
     const [disable, setDisable] = useState(false);
 
     // Variables del formulario
-    const [address, setAddress] = useState(auth.address);
+    const [address, setAddress] = useState('');
     const [street, setStreet] = useState(auth.street);
     const [externNumber, setExternNumber] = useState(auth.externNumber);
     const [internNumber, setInternNumber] = useState(auth.internNumber);
@@ -68,15 +68,6 @@ const AddressForm = ({button, active}) => {
                 handleSaveAddress()
             }}
         >
-            <div className='flex flex-col'>
-                <label className='font-medium text-neutral-500'>Direccion</label>
-                <LocationSearchInput 
-                    setAddress={setAddress}
-                    address={address}
-                    status={disable}
-                />
-            </div>
-
             <div className='flex flex-col'>
                 <label className='font-medium text-neutral-500' htmlFor='colony'>Calle</label>
                 <input 
@@ -189,7 +180,7 @@ const AddressForm = ({button, active}) => {
                 >Editar Direccion</Link>
             )}
 
-            <p className='mt-2 font-bold'>Por el momento solo se hacen entregas dentro del <span className='text-sky-600'>Area Metropolitana de Monterrey</span></p>
+            <p className='mt-2 font-bold'>Cualquier compra fuera del <span className='text-sky-600'>Area Metropolitana de Monterrey</span> el costo de envio se cobrara a parte</p>
             
         </form>
     )
