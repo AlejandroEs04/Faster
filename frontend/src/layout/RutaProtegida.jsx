@@ -15,7 +15,7 @@ const RutaProtegida = () => {
     
     return (
         <>
-            {auth.ID ? (
+            {auth?.ID ? (
                 <>
                     {slider && (
                         <Slider />

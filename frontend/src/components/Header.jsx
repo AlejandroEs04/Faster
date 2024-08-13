@@ -41,7 +41,7 @@ const Header = () => {
                 </Link>
               </li>
 
-              {auth.ID && (
+              {auth?.ID && (
                 <li className='inline-block relative text-neutral-600 font-medium text-lg hover:text-sky-600 transition-colors px-2'>
                   <Link to={!auth.admin ? '/user/porfile' : '/admin'} className='flex items-center'>
                     <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
@@ -53,7 +53,7 @@ const Header = () => {
                 </li>
               )}
 
-              {!auth.ID ? (
+              {!auth?.ID ? (
                 <li className='inline-block relative bg-gradient-to-r from-sky-500 to-sky-700 bg-clip-text text-transparent font-bold text-lg hover:text-sky-700 transition-colors pl-6'><Link to='/login'>Iniciar Sesion</Link></li>
               ) : (
                 <li className='inline-block relative text-red-600 font-medium text-lg hover:text-red-700 transition-colors pl-6'>

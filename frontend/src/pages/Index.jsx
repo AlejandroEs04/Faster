@@ -55,7 +55,7 @@ const Index = () => {
 
               <div className='flex flex-col'>
                 <label htmlFor="lastName" className='text-lg font-medium'>Mensaje</label>
-                <textarea name="message" id="message" className='p-1 rounded border'></textarea>
+                <textarea name="message" id="message" className='p-1 rounded border h-36'></textarea>
               </div>
 
               <button className='bg-sky-600 px-2 py-1 rounded text-white hover:bg-sky-700 transition-colors'>Enviar</button>
