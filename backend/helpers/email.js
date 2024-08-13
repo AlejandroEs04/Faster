@@ -266,30 +266,35 @@ export const emailContactForm = async(datos) => {
     }
   });
 
-  // Email info
-  await transport.sendMail({
-    from: '"Faster-Guantes" <cuentas@faztershop.com>',
-    to: `c.estrada.80.mtz@gmail.com`, 
-    subject: 'Se ha enviado un correo',
-    text: "Se ha solicitado informacion de un cliente",
-    html: `
-      <div style="width: 100%; display: flex; justify-content: center;">
-        <div 
-            style="
-                padding: 12px 25px; 
-                background: rgb(236,235,240); 
-                border-radius: 10px;
-            "
-        >
-            <div style="display: flex; justify-content: center; margin: 5px;">
-                <img src="https://res.cloudinary.com/dmap6p5wl/image/upload/v1710427606/virwisquntihlcqpi7zu.png" alt="" style="width: 120px;">
-            </div>
-            
-            <p style="margin: 20px 0 5px 0;">Se ha solicitado informacion de parte del usuario ${name}</p>
-            <p style="margin: 5px 0;">Con el correo: ${email}</p>
-            <p style="margin: 5px 0;">El mensaje que dejo fue el siguiente: ${message}</p>
+  try {
+    // Email info
+    await transport.sendMail({
+      from: '"Faster-Guantes" <cuentas@faztershop.com>',
+      to: `c.estrada.80.mtz@gmail.com`, 
+      subject: 'Se ha enviado un correo',
+      text: "Se ha solicitado informacion de un cliente",
+      html: `
+        <div style="width: 100%; display: flex; justify-content: center;">
+          <div 
+              style="
+                  padding: 12px 25px; 
+                  background: rgb(236,235,240); 
+                  border-radius: 10px;
+              "
+          >
+              <div style="display: flex; justify-content: center; margin: 5px;">
+                  <img src="https://res.cloudinary.com/dmap6p5wl/image/upload/v1710427606/virwisquntihlcqpi7zu.png" alt="" style="width: 120px;">
+              </div>
+              
+              <p style="margin: 20px 0 5px 0;">Se ha solicitado informacion de parte del usuario ${name}</p>
+              <p style="margin: 5px 0;">Con el correo: ${email}</p>
+              <p style="margin: 5px 0;">El mensaje que dejo fue el siguiente: ${message}</p>
+          </div>
         </div>
-      </div>
-     `
-  });
+       `
+    });
+  } catch (error) {
+    throw new Error('Cannot send the mail')
+  }
+
 }

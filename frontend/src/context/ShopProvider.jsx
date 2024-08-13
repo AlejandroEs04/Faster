@@ -13,7 +13,6 @@ const ShopProvider = ({children}) => {
     const [products, setProducts] = useState([]);
     const [sizes, setSizes] = useState([]);
     const [alertas, setAlertas] = useState(null);
-    const [articles, setArticles] = useState([]);
     const [orders, setOrders] = useState([]);
     const [slider, setSlider] = useState();
 
@@ -30,7 +29,6 @@ const ShopProvider = ({children}) => {
             getTypes();
             getProducts();
             getSizes();
-            getArticles();
         }
 
         socket.on('productsUpdate', () => getProducts())
@@ -338,16 +336,6 @@ const ShopProvider = ({children}) => {
         }
     }
 
-    const getArticles = async() => {
-        try {
-            const { data } = await axios(`${import.meta.env.VITE_API_URL}/api/articles`)
-
-            setArticles(data.articles)
-        } catch (error) {
-            console.log(error)
-        }
-    }
-
     const handleGetBuy = async() => {
         const token = localStorage.getItem('token');
         
@@ -364,6 +352,22 @@ const ShopProvider = ({children}) => {
             setOrders(data.buys)
         } catch (error) {
             console.log(error)
+        }
+    }
+
+    const handleContactUs = async(mailInfo) => {
+        setLoad(true)
+
+        try {
+            const { data } = await axios.post(`${import.meta.env.VITE_API_URL}/api/contact-us`, mailInfo)
+
+            toast.success(data.msg, {
+                position: toast.POSITION.BOTTOM_RIGHT
+            })
+        } catch (error) {
+            console.log(error)
+        } finally {
+            setLoad(false)
         }
     }
 
@@ -393,11 +397,11 @@ const ShopProvider = ({children}) => {
                 setCart,
                 createOrderPaypal,
                 addPurchase,
-                articles,
                 handleGetBuy,
                 orders,
                 slider, 
-                setSlider
+                setSlider, 
+                handleContactUs
             }}
         >
             {children}

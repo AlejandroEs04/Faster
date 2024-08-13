@@ -1,18 +1,4 @@
-import { useEffect, useState } from "react"
-import useShop from "../hooks/useShop"
-
 const ModelsInfo = () => {
-  const [mainSection, setMainSection] = useState(null);
-  const { articles } = useShop()
-
-  useEffect(() => {
-    if(articles.length >= 1) {
-        const mainSectionArray = articles.filter(article => article.ID === 1);
-
-        setMainSection(mainSectionArray[0])
-    }
-  }, [articles])
-
   return (
     <div className="flex justify-center items-center h-full px-4">
       <div className="flex flex-col w-full lg:w-3/4">

@@ -8,7 +8,7 @@ import typesRoutes from "./routes/typeRoutes.js";
 import sizeRoutes from "./routes/sizeRoutes.js";
 import userRoutes from "./routes/userRoutes.js";
 import buyRoutes from "./routes/buyRoutes.js";
-import articlesRoutes from './routes/ArticleRoutes.js';
+import contactUs from './routes/contactRoutes.js'
 
 const app = express();
 app.use(express.json());
@@ -43,7 +43,7 @@ app.use('/api/types', typesRoutes);
 app.use('/api/sizes', sizeRoutes);
 app.use('/api/users', userRoutes);
 app.use('/api/buy', buyRoutes);
-app.use('/api/articles', articlesRoutes);
+app.use('/api/contact-us', contactUs);
 
 const server = createServer(app);
 
