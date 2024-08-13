@@ -81,7 +81,7 @@ const Slider = () => {
               </Link>
             </button>
 
-            {auth.ID && (
+            {auth?.ID && (
               <button onClick={() => setSlider(false)} className="text-end">
                 <Link
                   to={!auth.admin ? "/user/porfile" : "/admin"}
@@ -106,7 +106,7 @@ const Slider = () => {
               </button>
             )}
 
-            {!auth.ID ? (
+            {!auth?.ID ? (
               <button onClick={() => setSlider(false)} className="text-end">
                 <Link
                   to="/login"
