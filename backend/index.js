@@ -16,22 +16,9 @@ app.use(express.json());
 dotenv.config();
 
 // Configurar Cors
-const whiteList = [
-    process.env.FRONTEND_URL, 
-    "fasterdepot.com", 
-    "www.fasterdepot.com"
-];
 
 const corsOptions = {
-    origin: function(origin, callback) {
-        if(whiteList.includes(origin)) {
-            // Esta permitido consultar la API
-            callback(null, true);
-        } else {
-            // No esta permitido a consultar la API
-            callback(new Error('Error de cors'));
-        }
-    }
+    origin: true
 }
 
 app.use(cors(corsOptions));
