@@ -9,6 +9,7 @@
 }
 
 html {
+  position: relative;
   display: flex;
   height: 100%;
   font-family: "Poppins", serif;
@@ -59,6 +60,9 @@ p.down-text {
   font-size: 1.2rem;
   margin-top: 1rem;
 }
+.w-full {
+  width: 100%;
+}
 button {
   background-color: transparent;
   border: none;
@@ -68,6 +72,10 @@ button {
   padding: 0.5rem 1rem;
   font-size: 1.5rem;
   transition: all ease 0.2s;
+}
+.btn-lg {
+  padding: 1rem;
+  font-size: 1.8rem;
 }
 .btn-primary {
   color: var(--white);
@@ -124,6 +132,51 @@ button {
   display: flex;
   justify-content: space-between;
 }
+.loader {
+  width: 48px;
+  height: 48px;
+  border: 5px solid #FFF;
+  border-bottom-color: transparent;
+  border-radius: 50%;
+  display: inline-block;
+  box-sizing: border-box;
+  animation: rotation 1s linear infinite;
+  }
+
+  @keyframes rotation {
+  0% {
+      transform: rotate(0deg);
+  }
+  100% {
+      transform: rotate(360deg);
+  }
+}
+
+.absoluteCenter {
+  position: absolute;
+  display: flex;
+  top: 0;
+  height: 100%;
+  width: 100%;
+  background-color: #41414171;
+  backdrop-filter: blur(30px);
+}
+.loader-container {
+  margin: auto;
+}
+
+.alert {
+  padding: 1rem;
+  text-align: center;
+  margin: 0.5rem 0;
+}
+.alert.error {
+  background-color: #ff000091;
+  color: var(--white);
+  border-radius: 1rem;
+  font-size: 1.5rem;
+  font-weight: 500;
+}
 
 /* INPUT STYLES */
 .input-container {
@@ -157,7 +210,7 @@ button {
   color: var(--white);
 }
 .table tbody tr {
-  background-color: var(--gray);
+  background-color: #696969;
   font-size: 1.4rem;
   transition: all ease 0.2s;
   cursor: pointer;
@@ -169,7 +222,7 @@ button {
   border-radius: 0 1rem 1rem 0;
 }
 .table tbody tr:nth-of-type(odd) {
-  background: #525252;
+  background: #302e2e;
   transition: all ease 0.2s;
 }
 .table th, .table td {

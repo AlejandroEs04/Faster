@@ -9,6 +9,10 @@
     display: flex;
     gap: 2rem;
 }
+.subContainer button svg {
+    color: var(--white);
+    cursor: pointer;
+}
 .header nav a, .header nav {
     list-style: none;
     text-decoration: none;

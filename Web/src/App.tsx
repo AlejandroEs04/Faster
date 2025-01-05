@@ -8,15 +8,15 @@ import { AppProvider } from './context/AppProvider'
 function App() {
   return (
     <BrowserRouter>
-      <AppProvider>
-        <Routes>
-          <Route path='/' element={<Layout />}>
-            <Route index element={<Index />} />
-            <Route path='products' element={<Products />} />
-            <Route path='products/add' element={<RegisterProduct />} />
-          </Route>
-        </Routes>
-      </AppProvider>
+        <AppProvider>
+          <Routes>
+            <Route path='/' element={<Layout />}>
+              <Route index element={<Index />} />
+              <Route path='products' element={<Products />} />
+              <Route path='products/add' element={<RegisterProduct />} />
+            </Route>
+          </Routes>
+        </AppProvider>
     </BrowserRouter>
   )
 }
