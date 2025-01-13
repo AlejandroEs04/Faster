@@ -15,7 +15,7 @@ model Product {
   ID Int @id @default(autoincrement())
   name String
   description String
-  typeID Int
+  typeID Int?
   price Float
   wholesalePrice Float @default(1000)
   amount Int
@@ -23,7 +23,7 @@ model Product {
   detProductSize DetProductSize[]
   detProductColor DetProductColor[]
   active Boolean @default(true)
-  type Type @relation(fields: [typeID], references: [ID])
+  type Type? @relation(fields: [typeID], references: [ID])
   cart Cart[]
   productBuy ProductBuy[]
   images ProductImage[]

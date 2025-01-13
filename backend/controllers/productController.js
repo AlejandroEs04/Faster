@@ -26,8 +26,6 @@ const findAll = async(req, res) => {
     } catch (error) {
         console.log(error)
     }
-
-    return res.status(400).json({msg: "Si funciona"});
 }
 
 const create = async(req, res) => {
