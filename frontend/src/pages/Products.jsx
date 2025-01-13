@@ -11,39 +11,51 @@ const Products = () => {
 
       <div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5 mt-2'>
         {products?.map(product => (
-          <div 
-            key={product?.ID}
-            className='bg-white shadow-md hover:shadow-xl transition-colors rounded'
-          >
-            <div className='px-4 pt-4 flex justify-center'>
-              <img 
-                src={product?.imageUrl} 
-                alt={`Imagen de producto ${product?.name}`} 
-                className='max-w-56 w-full'
-              />
-            </div>
+          <div className='flex flex-col justify-between'>
+            <div 
+              key={product?.ID}
+              className='bg-white shadow-md hover:shadow-xl transition-colors rounded min-h-56 flex flex-col justify-between'
+            >
+              {product?.imageUrl ? (
+                <div className='px-4 pt-4 flex justify-center'>
+                  <img 
+                    src={product?.imageUrl} 
+                    alt={`Imagen de producto ${product?.name}`} 
+                    className='max-w-56 w-full'
+                  />
+                </div>
+              ) : (
+                <p className='p-4 text-center text-lg font-semibold text-neutral-500'>No hay imagen disponible</p>
+              )}
 
-            <div className='p-4'>
-              <h3 className='text-lg font-semibold'>{product?.name}</h3>
-              <p className='text-2xl font-bold text-sky-600'>{formatearDinero(+product?.price)}</p>
+              <div className='p-4'>
+                <h3 className='text-lg font-semibold'>{product?.name}</h3>
+                <p className='text-2xl font-bold text-sky-600'>{formatearDinero(+product?.price)}</p>
 
-              <p>Por cada 10: {formatearDinero(+product?.wholesalePrice)}</p>
-            
-              <div className="my-2">
-                <h4 className="text-sky-600">Tallas Disponibles</h4>
-                <div className="flex gap-2 py-1">
-                  {product?.detProductSize?.map(size => (
-                    <button 
-                      key={size.ID}
-                      className="text-sm bg-neutral-500 text-neutral-100 font-semibold p-0.5 w-6 h-6 text-center rounded bg-opacity-95 shadow-sm"
-                    >{size.size.letter}</button>
-                  ))}
+                {product.wholesalePrice != null && product.wholesalePrice > 0 && (
+                  <p>Por cada 10: {formatearDinero(+product?.wholesalePrice)}</p>
+                )}
+
+                {product?.detProductSize?.lenght > 0 && (
+                  <div className="mt-2">
+                    <h4 className="text-sky-600">Tallas Disponibles</h4>
+                    <div className="flex gap-2 py-1">
+                      {product?.detProductSize?.map(size => (
+                        <button 
+                          key={size.ID}
+                          className="text-sm bg-neutral-500 text-neutral-100 font-semibold p-0.5 w-6 h-6 text-center rounded bg-opacity-95 shadow-sm"
+                        >{size.size.letter}</button>
+                      ))}
+                    </div>
+                  </div>
+                )}
+              
+                <div className='mt-2'>
+                  <Link to={`/products/${product.ID}`} className='w-full bg-sky-600 text-white px-3 py-1 rounded'>Saber más</Link>
                 </div>
               </div>
 
-              <Link to={`/products/${product.ID}`} className='w-full bg-sky-600 text-white px-3 py-1 rounded'>Saber más</Link>
             </div>
-
           </div>
         ))}
       </div>

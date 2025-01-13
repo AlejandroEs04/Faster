@@ -11,7 +11,7 @@ const Product = () => {
     const [total, setTotal] = useState(0)
     const [product, setProduct] = useState({})
 
-    const { products,handleSaveCarrito, load } = useShop();
+    const { products, handleSaveCarrito, load } = useShop();
 
     const params = useParams();
     const { id } = params;
@@ -24,14 +24,12 @@ const Product = () => {
     }, [products])
 
     useEffect(() => {
-        if(cantidad % 10 === 0 && cantidad > 0) {
+        if(product.wholesalePrice > 0 && cantidad % 10 === 0 && cantidad > 0) {
             setTotal((cantidad / 10) * product?.wholesalePrice);
         } else {
             setTotal(cantidad * product?.price)
-        }
+        10}
     }, [cantidad, product])
-
-    console.log(product)
 
     return (
             <div className="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8 my-10">
@@ -74,19 +72,21 @@ const Product = () => {
                                 e.preventDefault()
                                 handleSaveCarrito(product?.ID, sizeID, cantidad)
                             }}>
-                                <div className="flex flex-col gap-0.5">
-                                    <label htmlFor="size">Eliga la talla</label>
-                                    <select 
-                                        id="size" 
-                                        className="px-2 py-1 text-neutral-600 border rounded"
-                                        value={sizeID}
-                                        onChange={e => setSizeID(e.target.value)}
-                                    >
-                                        {product?.detProductSize?.map(size => (
-                                            <option key={size.size.ID} value={size.size.ID}>{size.size.name}</option>
-                                        ))}
-                                    </select>
-                                </div>
+                                {product?.detProductSize?.length > 0 && (
+                                    <div className="flex flex-col gap-0.5">
+                                        <label htmlFor="size">Eliga la talla</label>
+                                        <select 
+                                            id="size" 
+                                            className="px-2 py-1 text-neutral-600 border rounded"
+                                            value={sizeID}
+                                            onChange={e => setSizeID(e.target.value)}
+                                        >
+                                            {product?.detProductSize?.map(size => (
+                                                <option key={size.size.ID} value={size.size.ID}>{size.size.name}</option>
+                                            ))}
+                                        </select>
+                                    </div>
+                                )}
 
                                 <div className="flex flex-col gap-0.5 mt-2">
                                     <label htmlFor="number">Cantidad</label>
@@ -130,7 +130,6 @@ const Product = () => {
                                         </button>
                                     </div>
                                 )}
-
                             </form>
                         </div>
                     </div>

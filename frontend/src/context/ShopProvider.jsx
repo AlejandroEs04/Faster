@@ -64,7 +64,7 @@ const ShopProvider = ({children}) => {
         setType(typeID)
     }
 
-    const handleSaveCarrito = async(productID, sizeID, cantidad) => {
+    const handleSaveCarrito = async(productID, sizeID = null, cantidad) => {
         const token = localStorage.getItem('token');
 
         const config = {

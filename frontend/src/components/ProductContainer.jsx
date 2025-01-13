@@ -36,7 +36,7 @@ const ProductContainer = ({ product }) => {
                     </div>
                 </div>
 
-                <Link to={`/products/${product.ID}`} className="bg-sky-500 text-white px-2 py-1 rounded mt-2 text-center hover:bg-sky-600 transition-colors">Saber más</Link>
+                <Link to={`/products/${product.ID}`} className="bg-sky-500 text-white px-2 py-1 rounded mt-2 text-center hover:bg-sky-600 transition-colors w-full">Saber más</Link>
             </div>
         </div>
     )
