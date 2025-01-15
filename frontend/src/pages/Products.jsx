@@ -5,6 +5,8 @@ import useShop from '../hooks/useShop'
 const Products = () => {
   const { products } = useShop()
 
+  const { handleSaveCarrito } = useShop()
+
   return (
     <div className='mx-auto max-w-7xl px-2 sm:px-6 lg:px-8 my-10'>
       <h1 className='text-3xl font-semibold text-sky-600'>Productos</h1>

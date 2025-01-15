@@ -42,7 +42,7 @@ const BuySeccion = () => {
     if(cart.length >= 1) {
       const calculoSubtotal = cart.reduce((total, cartProduct) => total + (
         // El carrito tiene mas de 10 productos 
-        cartProduct.cantidad >= 10 ?
+        (cartProduct.cantidad >= 10 && cartProduct.wholesalePrice > 0) ?
         // El residuo de la cantidad de productos es 0
         cartProduct.cantidad % 10 === 0 ? (cartProduct.products.wholesalePrice * (cartProduct.cantidad / 10)) : 
 

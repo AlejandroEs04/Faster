@@ -21,26 +21,26 @@ export const AppProvider = ({children} : AppProviderProps) => {
     const [state, dispatch] = useReducer(AppReducer, initialState)
 
     useEffect(() => {
-            const autenticarUsuario = async() => {
-                const token = localStorage.getItem('token');
-    
-                if(!token) {
-                    setLoading(false)
-                    return
-                }
-    
-                try {
-                    const auth = await authLogin(token)
-                    dispatch({ type: 'set-auth', payload: { auth } })
-                } catch (error) {
-                    dispatch({ type: 'set-auth', payload: { auth: null } })
-                } finally {
-                    setLoading(false)
-                }
+        const autenticarUsuario = async() => {
+            const token = localStorage.getItem('token');
+        
+            if(!token) {
+                setLoading(false)
+                return
             }
-    
-            autenticarUsuario();
-        }, [])
+        
+            try {
+                const auth = await authLogin(token)
+                dispatch({ type: 'set-auth', payload: { auth } })
+            } catch (error) {
+                dispatch({ type: 'set-auth', payload: { auth: null } })
+            } finally {
+                setLoading(false)
+            }
+        }
+        
+        autenticarUsuario();
+    }, [])
     
         const logOut = () => {
             localStorage.removeItem('token');

@@ -104,10 +104,10 @@ model Cart {
   userID Int
   productID Int
   cantidad Int 
-  sizeID Int
+  sizeID Int?
   products Product @relation(fields: [productID], references: [ID])
   user User @relation(fields: [userID], references: [ID])
-  size Size @relation(fields: [sizeID], references: [ID])
+  size Size? @relation(fields: [sizeID], references: [ID])
 }
 
 // Modelo para compras
